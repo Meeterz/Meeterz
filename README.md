@@ -1,5 +1,8 @@
 # Meeterz
 
+Collaborators:
+[Chris Gray](https://github.com/graycj42)
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
