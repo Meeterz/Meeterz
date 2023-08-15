@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import HomePageButtons from '../components/HomePageButtons.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <HomePageButtons />
   </main>
 </template>
