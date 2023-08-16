@@ -1,6 +1,7 @@
 # Meeterz
 
-Collaborators: 
+Collaborators:
+Chris Gray [https://github.com/graycj42]
 Ethan Wan [https://github.com/ELW123]
 Tyson Sakamoto [https://github.com/tysonmasa]
 Faye Yang [https://github.com/Fyang094]
