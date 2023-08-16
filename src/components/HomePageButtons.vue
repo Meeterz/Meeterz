@@ -11,7 +11,7 @@ import SupportIcon from './icons/IconSupport.vue'
   <div>
     <!---Instructions for joining/creating a room maybe?-->
     <nav>
-      <RouterLink to="/room-???"><button @click="navigate" role="link">Join</button></RouterLink>
+      <RouterLink to="/room"><button @click="navigate" role="link">Join</button></RouterLink>
       <RouterLink to="/create-room"><button @click="navigate" role="link">Create a room</button></RouterLink>
     </nav>
   </div>
