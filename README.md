@@ -1,6 +1,7 @@
 # Meeterz
 
-
+Collaborators: 
+Ethan Wan [https://github.com/ELW123]
 Tyson Sakamoto [https://github.com/tysonmasa]
 Faye Yang [https://github.com/Fyang094]
 
