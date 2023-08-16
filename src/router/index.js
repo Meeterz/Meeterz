@@ -18,7 +18,7 @@ const router = createRouter({
       component: () => import('../views/CreateRoom.vue') //rename component/*.vue page when this is setup
     },
      {
-       path: '/room-????', //add room code here to the url to call specific room details etc.
+       path: '/room', //add room code here to the url query to call specific room details from DB etc.
        name: 'room',
        component: () => import('../views/Room.vue')
      }
