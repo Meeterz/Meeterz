@@ -1,6 +1,8 @@
 # Meeterz
 
+
 Tyson Sakamoto [https://github.com/tysonmasa]
+Faye Yang [https://github.com/Fyang094]
 
 This template should help get you started developing with Vue 3 in Vite.
 
