@@ -8,6 +8,16 @@ import SupportIcon from './icons/IconSupport.vue'
 </script>
 
 <template>
+  <div>
+    <!---Instructions for joining/creating a room maybe?-->
+    <nav>
+      <RouterLink to="/room"><button @click="navigate" role="link">Join</button></RouterLink>
+      <RouterLink to="/create-room"><button @click="navigate" role="link">Create a room</button></RouterLink>
+    </nav>
+  </div>
+</template>
+
+<!-- <template>
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
@@ -83,4 +93,4 @@ import SupportIcon from './icons/IconSupport.vue'
     us by
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
   </WelcomeItem>
-</template>
+</template> -->
