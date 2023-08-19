@@ -11,12 +11,33 @@ import SupportIcon from './icons/IconSupport.vue'
   <div>
     <!---Instructions for joining/creating a room maybe?-->
     <nav>
-      <RouterLink to="/room"><button @click="navigate" role="link">Join</button></RouterLink>
+      <RouterLink :to="{name: 'room', params: {code: isEmpty ? ' ' : roomCode}}"><button :disabled = "isDisabled" role="link">Join</button></RouterLink>
+      <input v-model="roomCode">
       <RouterLink to="/create-room"><button @click="navigate" role="link">Create a room</button></RouterLink>
     </nav>
   </div>
 </template>
 
+
+<script>
+export default {
+  data(){
+    return {
+      roomCode: '',
+      isEmpty: true,
+      rightLength: true,
+    }
+  },
+  computed: {
+    isEmpty(){
+      return this.roomCode.length === 0;
+    },
+    isDisabled(){
+      return this.roomCode.length !== 4;
+    }
+  },
+}
+</script>
 <!-- <template>
   <WelcomeItem>
     <template #icon>
