@@ -10,8 +10,8 @@ import CreateRoomButtons from '../components/CreateRoomButtons.vue'
     <CreateRoomButtons />
   </main>
   <div>
-    <input type="text" v-model="inputText" placeholder="Add activites here...">
-    <button>Add Activity</button>
+    <input type="text" v-model="inputText" placeholder="Enter Room name">
+    <button>Name Room</button>
   </div>
 </template>
 
