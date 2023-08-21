@@ -13,8 +13,10 @@
     </head>
     <body>
         <h1>___'s room</h1>
-
-    <ActivityChooser/>
+    <div>
+        <h3>Activity Chooser</h3>
+         <ActivityChooser/>
+    </div>
         
     </body>
     
