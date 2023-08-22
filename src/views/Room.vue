@@ -1,3 +1,4 @@
+
 <script>
     import ActivityChooser from '../components/ActivityChooser.vue';
     import TimeSelector from '../components/TimeSelector.vue';
@@ -55,3 +56,4 @@
     padding: 1rem;
 }
 </style>
+

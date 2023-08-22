@@ -1,6 +1,17 @@
+<script setup>
+import CreateRoomButtons from '../components/CreateRoomButtons.vue'
+</script>
+
 <template>
   <div class="create">
     <h1>Room creation options placeholder page</h1>
+  </div>
+  <main>
+    <CreateRoomButtons />
+  </main>
+  <div>
+    <input type="text" v-model="inputText" placeholder="Enter Room name">
+    <button>Name Room</button>
   </div>
 </template>
 
