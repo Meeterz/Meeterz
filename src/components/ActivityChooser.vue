@@ -13,9 +13,9 @@
       <div>Selected: {{ selected }}</div>
       <select v-model="selected">
         <option disabled value="">Please select one</option>
-        <option>A</option>
-        <option>B</option>
-        <option>C</option>
+        <template v-for="n in count">
+          <option>{{ acts[n - 1] }}</option>
+        </template>
       </select>
     </div>
   </template>
