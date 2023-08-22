@@ -1,6 +1,6 @@
 <script>
 //db stuff ------
-import { db } from '../firebaseResources';
+import { db } from '../firebaseResources.js';
 import {
   collection,
   doc,
