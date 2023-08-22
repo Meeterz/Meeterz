@@ -9,6 +9,7 @@
     }
 </script>
 
+
 <template>
     <head> 
         <title>___'s room</title>
@@ -27,18 +28,21 @@
                 <h3>Activity Chooser</h3>
                 <ActivityChooser/>
             </div>
+
             <div class='showborder'>
                 <h3>Chatbox</h3>
             </div>
         </div>
+
+        <!--EXIT BUTTON-->
         <nav>
             <RouterLink to="/"><button @click="navigate" role="link">leave</button></RouterLink>
         </nav>
 
-        
     </body>
     
 </template>
+
 
 <style>
 .options {
