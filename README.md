@@ -6,6 +6,13 @@ Collaborators:
 [Tyson Sakamoto](https://github.com/tysonmasa)
 [Faye Yang](https://github.com/Fyang094)
 
+Calendar fullcalendar component install: 
+npm install --save \
+  @fullcalendar/core \
+  @fullcalendar/vue3 \
+  @fullcalendar/resource \
+  @fullcalendar/resource-timeline
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
