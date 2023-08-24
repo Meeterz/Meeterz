@@ -6,21 +6,32 @@ import HelloWorld from './components/HelloWorld.vue'
 <template>
   <header>
     <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
-    <div text-align = "center">Meeterz logo here(centered)</div>
+    <div text-align = "center">Meeterz</div>
   </header>
 
   <RouterView />
 
   <footer>
-    <div>Make a footer here???</div>
+    <!-- Temp footer -->
   </footer>
 </template>
 
-<style scoped>
+<style>
 /* header {
   line-height: 1.5;
   max-height: 100vh;
 } */
+
+html {
+  background-color: #FEFEE3;
+}
+
+header {
+  color: #FA744D;
+  font: Coiny;
+  text-align: center;
+  font-size: 200px;
+}
 
 .logo {
   display: block;
@@ -29,7 +40,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 nav {
   width: 100%;
-  font-size: 12px;
+  font-size: 24px;
   text-align: center;
   margin-top: 2rem;
 }
@@ -39,7 +50,7 @@ nav a.router-link-exact-active {
 }
 
 nav a.router-link-exact-active:hover {
-  background-color: transparent;
+  background-color: #FA744D;
 }
 
 nav a {
