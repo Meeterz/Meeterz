@@ -6,17 +6,26 @@
         components: {
             ActivityChooser,
             TimeSelector,
-        }
+        },
+        data(){
+            return {
+                roomName: 'room',
+            }
+        },
     }
+    
+
+    
 </script>
 
 
 <template>
     <head> 
-        <title>___'s room</title>
+        <title>room</title>
     </head>
     <body>
-        <h1>___'s room</h1>
+        <!--query to get the room name-->
+        <h1>{{ roomName }}</h1>
         <br>
 
         <div class = 'options'>

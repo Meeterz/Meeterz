@@ -5,15 +5,35 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+//db stuff
+import { db } from '../firebaseResources.js';
+import {
+  collection,
+  doc,
+  addDoc,
+  setDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+} from 'firebase/firestore'
+
 </script>
 
 <template>
   <div>
     <!---Instructions for joining/creating a room maybe?-->
     <nav>
+      <!--Join Room-->
       <RouterLink :to="{name: 'room', params: {code: isEmpty ? ' ' : roomCode}}"><button id="joinRoomButton" :disabled = "isDisabled" role="link">Join</button></RouterLink>
-      <input v-model="roomCode">
-      <RouterLink to="/create-room"><button id="createRoomButton" @click="navigate" role="link">Create a room</button></RouterLink>
+      Room ID: <input v-model="roomCode">
+      <!--Create room-->
+      <RouterLink :to="{name: 'room', params: {code:roomID}}">
+        <button id="createRoomButton" :disabled = "noName" @click="createRoom()" role="link">Create a room</button>
+      </RouterLink>
+      Room name: <input v-model.trim="roomName"/>
+
     </nav>
   </div>
 </template>
@@ -37,18 +57,49 @@ export default {
   data(){
     return {
       roomCode: '',
+      roomName: '',
+      roomID: '0',
       isEmpty: true,
       rightLength: true,
     }
   },
+
   computed: {
     isEmpty(){
       return this.roomCode.length === 0;
     },
     isDisabled(){
       return this.roomCode.length !== 4;
-    }
+    },
+    noName() {
+      return !this.roomName;
+    },
   },
+
+  methods: {
+    async createRoom() {
+      if (this.roomName) {
+        try {
+          console.log('calling create room');
+          console.log('creating room:', {roomName: this.roomName});
+
+          const docReference = await addDoc(
+            collection(db, 'rooms'),
+            {
+              roomName:this.roomName,
+            }
+          );
+          console.log('New room:', {roomName: docReference.roomName, roomID: docReference.id});
+          console.log('Completed createRoom');
+        }
+        catch(err) {
+          console.error('Error in createRoom',err);
+        }
+      }
+    },
+
+  },
+
 }
 </script>
 <!-- <template>
