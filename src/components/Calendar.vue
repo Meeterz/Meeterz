@@ -1,6 +1,7 @@
 <script>
 import FullCalendar from '@fullcalendar/vue3'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
+import interactionPlugin from '@fullcalendar/interaction';
 
 export default {
   components: {
@@ -9,7 +10,9 @@ export default {
   data() {
     return {
       calendarOptions: {
-        plugins: [ resourceTimelinePlugin ],
+        plugins: [ resourceTimelinePlugin, interactionPlugin ],
+        selectable: true,
+        unselectAuto: false,
         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives'
       }
     }
