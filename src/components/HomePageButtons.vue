@@ -29,8 +29,11 @@ import {
       <RouterLink :to="{name: 'room', params: {code: isEmpty ? ' ' : roomCode}}"><button id="joinRoomButton" :disabled = "isDisabled" role="link">Join</button></RouterLink>
       Room ID: <input v-model="roomCode">
       <!--Create room-->
+      <!--right now i have one button that creates the room, and then one that puts the host inside it
+      with a uniqe url. I want it in one button but i dont know how to rn.-->
+      <button id="createRoomButton" :disabled = "noName" @click="createRoom()">Create a room</button>
       <RouterLink :to="{name: 'room', params: {code:roomID}}">
-        <button id="createRoomButton" :disabled = "noName" @click="createRoom()" role="link">Create a room</button>
+        <button id="createRoomButton" :disabled = "noName" role="link">now join</button>
       </RouterLink>
       Room name: <input v-model.trim="roomName"/>
 
@@ -89,6 +92,7 @@ export default {
               roomName:this.roomName,
             }
           );
+          this.roomID = docReference.id;
           console.log('New room:', {roomName: docReference.roomName, roomID: docReference.id});
           console.log('Completed createRoom');
         }
@@ -96,10 +100,8 @@ export default {
           console.error('Error in createRoom',err);
         }
       }
-    },
-
-  },
-
+   },
+  }
 }
 </script>
 <!-- <template>

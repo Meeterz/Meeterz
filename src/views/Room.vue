@@ -2,15 +2,25 @@
 <script>
     import ActivityChooser from '../components/ActivityChooser.vue';
     import TimeSelector from '../components/TimeSelector.vue';
+    import HomePageButtons from '../components/HomePageButtons.vue';
+
+
     export default {
         components: {
             ActivityChooser,
             TimeSelector,
+            HomePageButtons,
         },
         data(){
             return {
-                roomName: 'room',
+                roomName: 'name',
             }
+        },
+        methods: {
+            
+        },
+        computed: {
+
         },
     }
     
@@ -21,11 +31,12 @@
 
 <template>
     <head> 
-        <title>room</title>
+        <title>{{roomName}}</title>
     </head>
     <body>
         <!--query to get the room name-->
         <h1>{{ roomName }}</h1>
+        <h5>Room ID: {{ roomID }}</h5>
         <br>
 
         <div class = 'options'>
