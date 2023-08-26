@@ -4,6 +4,10 @@
     import TimeSelector from '../components/TimeSelector.vue';
     import HomePageButtons from '../components/HomePageButtons.vue';
 
+    //store stuff
+    import {mapStores} from 'pinia'
+    import {useRoomStore} from '../stores/RoomStore'
+
 
     export default {
         components: {
@@ -17,10 +21,10 @@
             }
         },
         methods: {
-            
+
         },
         computed: {
-
+            ...mapStores(useRoomStore),
         },
     }
     
@@ -36,7 +40,7 @@
     <body>
         <!--query to get the room name-->
         <h1>{{ roomName }}</h1>
-        <h5>Room ID: {{ roomID }}</h5>
+        <h5>Room ID: {{ roomInfoStore.ID }}</h5>
         <br>
 
         <div class = 'options'>
