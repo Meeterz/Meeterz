@@ -9,6 +9,21 @@
     import {useRoomStore} from '../stores/RoomStore'
 
 
+    //db stuff
+    import { db } from '../firebaseResources';
+    import {
+    collection,
+    doc,
+    addDoc,
+    setDoc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+    deleteDoc,
+    } from 'firebase/firestore'
+
+
     export default {
         components: {
             ActivityChooser,
@@ -18,18 +33,42 @@
         data(){
             return {
                 roomName: 'name',
+                roomdata: null,
             }
         },
+        created() { //created and mounted can run functions 
+            this.findName();
+        },
+        mounted() {
+            this.findName();
+        },
         methods: {
+            async findName() {
+                try {
+                    console.log('Calling findName');
+                    const docRef = doc(db, 'rooms', this.roomInfoStore.ID);
+
+                    const docSnap = await getDoc(docRef);
+
+                    console.log({id: docSnap.id, ...docSnap.data() });
+                    this.roomdata = {
+                        id: docSnap.id,
+                        ...docSnap.data(),
+                    }
+                    console.log('Completed findName');
+
+                }
+                catch(err) {
+                    console.error('Error in findName', err);
+                }
+            },
 
         },
         computed: {
             ...mapStores(useRoomStore),
         },
+        
     }
-    
-
-    
 </script>
 
 
@@ -38,8 +77,10 @@
         <title>{{roomName}}</title>
     </head>
     <body>
-        <!--query to get the room name-->
-        <h1>{{ roomName }}</h1>
+        <template  v-if="roomdata">
+            <h1>{{ roomdata.roomName }}</h1>
+        </template>
+
         <h5>Room ID: {{ roomInfoStore.ID }}</h5>
         <br>
 

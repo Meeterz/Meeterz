@@ -23,7 +23,9 @@ import {useRoomStore} from '../stores/RoomStore'
     <!---Instructions for joining/creating a room maybe?-->
     <nav>
       <!--Join Room-->
-      <RouterLink :to="{name: 'room', params: {code: isEmpty ? ' ' : roomCode}}"><button id="joinRoomButton" :disabled = "isDisabled" role="link">Join</button></RouterLink>
+      <RouterLink :to="{name: 'room', params: {code: isEmpty ? ' ' : roomCode}}">
+        <button id="joinRoomButton" :disabled = "isDisabled" role="link">Join</button>
+      </RouterLink>
       Room ID: <input v-model="roomCode">
       <!--Create room-->
       <!--right now i have one button that creates the room and stores an ID, and then one that puts the host inside it
@@ -70,7 +72,7 @@ export default {
       return this.roomCode.length === 0;
     },
     isDisabled(){
-      return this.roomCode.length !== 4;
+      return this.roomCode.length !== 20;
     },
     noName() {
       return !this.roomName;
@@ -112,7 +114,8 @@ export default {
         console.error(err);
       }
     }
-   }
+   },
+
   }
 }
 </script>
