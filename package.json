@@ -16,6 +16,7 @@
     "@fullcalendar/interaction": "^6.1.8",
     "@fullcalendar/resource": "^6.1.8",
     "@fullcalendar/resource-timeline": "^6.1.8",
+    "@fullcalendar/timegrid": "^6.1.8",
     "@fullcalendar/vue3": "^6.1.8",
     "firebase": "^10.2.0",
     "pinia": "^2.1.4",
