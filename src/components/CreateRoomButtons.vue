@@ -61,7 +61,7 @@ export default {
     room ID(4 digits):<input type="text" v-model.trim="roomID"/>
     <button @click="createRoom()">put room in db</button>
     <nav>
-      <RouterLink to="/room"><button @click="navigate" role="link">Finalize</button></RouterLink>
+      <RouterLink to="/room" ><button @click="navigate" role="link">Finalize</button></RouterLink>
     </nav>
   </div>
   <div>

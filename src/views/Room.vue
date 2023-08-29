@@ -3,22 +3,46 @@
     import ActivityChooser from '../components/ActivityChooser.vue';
     import TimeSelector from '../components/TimeSelector.vue';
     import Calendar from '../components/Calendar.vue';
+    import HomePageButtons from '../components/HomePageButtons.vue';
+
+    //store stuff
+    import {mapStores} from 'pinia'
+    import {useRoomStore} from '../stores/RoomStore'
+
+
     export default {
         components: {
             ActivityChooser,
             TimeSelector,
             Calendar,
-        }
+            HomePageButtons,
+        },
+        data(){
+            return {
+                roomName: 'name',
+            }
+        },
+        methods: {
+
+        },
+        computed: {
+            ...mapStores(useRoomStore),
+        },
     }
+    
+
+    
 </script>
 
 
 <template>
     <head> 
-        <title>___'s room</title>
+        <title>{{roomName}}</title>
     </head>
     <body>
-        <h1>___'s room</h1>
+        <!--query to get the room name-->
+        <h1>{{ roomName }}</h1>
+        <h5>Room ID: {{ roomInfoStore.ID }}</h5>
         <br>
 
         <div class = 'options'>
