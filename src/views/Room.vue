@@ -45,7 +45,7 @@
             this.findName();
         },
         methods: {
-            async findName() {
+            async findName() { //finds the name of the room based on the id put in. Using the store for now
                 try {
                     console.log('Calling findName');
                     const docRef = doc(db, 'rooms', this.roomInfoStore.ID);
@@ -65,6 +65,28 @@
                 }
             },
 
+            /*
+            async findUsername() { //finds the name of the user
+                try {
+                    console.log('Calling findUsername');
+                    const docRef = doc(db, 'users', );
+
+                    const docSnap = await getDoc(docRef);
+
+                    console.log({id: docSnap.id, ...docSnap.data() });
+                    this.roomdata = {
+                        id: docSnap.id,
+                        ...docSnap.data(),
+                    }
+                    console.log('Completed findName');
+
+                }
+                catch(err) {
+                    console.error('Error in findName', err);
+                }
+            },
+            */
+
         },
         computed: {
             ...mapStores(useRoomStore),
@@ -76,7 +98,7 @@
 
 <template>
     <head> 
-        <title>{{roomName}}</title>
+        <title>{{roomdata.roomName}}</title>
     </head>
     <body>
         <template  v-if="roomdata">
@@ -96,10 +118,13 @@
                 <h3>Activity Chooser</h3>
                 <ActivityChooser/>
             </div>
+
             <div class='showborder'>
                 <h3>Chatbox</h3>
             </div>
         </div>
+
+        <!--calendar-->
         <div>
             <Calendar/>
         </div>
