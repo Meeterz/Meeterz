@@ -22,23 +22,25 @@ import {useRoomStore} from '../stores/RoomStore'
   <div>
     <!---Instructions for joining/creating a room maybe?-->
     <nav>
+      <!--enter username-->
+      username: <input v-model="username">
+
       <!--Join Room-->
       <RouterLink :to="{name: 'room', params: {code: joinIsEmpty ? ' ' : roomCode}}">
-        <button id="joinRoomButton" :disabled = "joinIsDisabled" @click="storeJoinID()" role="link">Join</button>
+        <button id="joinRoomButton" :disabled = "joinIsDisabled" @click="storeJoinID(); createUsername()" role="link">Join</button>
       </RouterLink>
       Room ID: <input v-model.trim="roomCode">
-      username: <input v-model="joinerUsername">
+
 
       <!--Create room-->
       <!--right now i have one button that creates the room and stores an ID, and then one that puts the host inside it
       with a uniqe url. I want it in one button but i dont know how to rn.-->
       <button id="createRoomButton" :disabled = "noName" @click="createRoom()">Create a room</button>
-      <button id="createRoomButton" @click="storeID()">store room</button>
       <RouterLink :to="{name: 'room', params: {code:roomID}}">
-        <button id="createRoomButton" :disabled = "noName" role="link">now join</button>
+        <button id="createRoomButton" :disabled = "noName" @click="createUsername()" role="link">now join</button>
       </RouterLink>
       Room name: <input v-model.trim="roomName"/>
-      username: <input v-model="createrUsername">
+
 
     </nav>
   </div>
@@ -67,8 +69,7 @@ export default {
       roomID: '0',
       isEmpty: true,
       rightLength: true,
-      joinerUsername: '',
-      createrUsername: '',
+      username: '',
     }
   },
 
@@ -100,7 +101,7 @@ export default {
           );
           this.roomID = docReference.id;
 
-          console.log('New room:', {roomName: docReference.roomName, roomID: docReference.id});
+          console.log('New room:', {roomID: docReference.id});
           console.log('Completed createRoom');
         }
         catch(err) {
@@ -135,41 +136,20 @@ export default {
       }
     },
 
-    async createJoinerUsername() { //call in both join and create with text boxes correlting to both fields.
-      if (this.joinerUsername) {
+    async createUsername() { //call in both join and create with text boxes correlting to both fields.
+      if (this.username) {
         try {
-          console.log('Calling createJoinerUsername');
-          console.log('Creating User:', {joinerUsername: this.joinerUsername});
+          console.log('Calling createUsername');
+          console.log('Creating User:', {username: this.username});
           const docReference = await addDoc(
             collection(db, 'users'),
             {
-              joinerUsername:this.joinerUsername,
+               username:this.username,
             }
           );
 
-          console.log('New User:', {joinerUsername: docReference.joinerUsername, ID: docReference.id});
-          console.log('Completed createJoinerUsername');
-        }
-        catch(err) {
-          console.error(err);
-        }
-      }
-    },
-
-    async createCreaterUsername() { //call in create with text boxes correlting to both fields.
-      if (this.createrUsername) {
-        try {
-          console.log('Calling createCreaterUsername');
-          console.log('Creating User:', {createrUsername: this.createrUsername});
-          const docReference = await addDoc(
-            collection(db, 'users'),
-            {
-              createrUsername:this.createrUsername,
-            }
-          );
-
-          console.log('New User:', {createrUsername: docReference.createrUsername, ID: docReference.id});
-          console.log('Completed createCreaterUsername');
+          console.log('New User:', {ID: docReference.id});
+          console.log('Completed createUsername');
         }
         catch(err) {
           console.error(err);

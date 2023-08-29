@@ -36,6 +36,7 @@
             return {
                 roomName: 'name',
                 roomdata: null,
+                roomID: this.$route.params.code,
             }
         },
         created() { //created and mounted can run functions 
@@ -48,7 +49,7 @@
             async findName() { //finds the name of the room based on the id put in. Using the store for now
                 try {
                     console.log('Calling findName');
-                    const docRef = doc(db, 'rooms', this.roomInfoStore.ID);
+                    const docRef = doc(db, 'rooms', this.roomID);
 
                     const docSnap = await getDoc(docRef);
 
@@ -98,14 +99,14 @@
 
 <template>
     <head> 
-        <title>{{roomdata.roomName}}</title>
+        <title>{{ roomName }}</title>
     </head>
     <body>
         <template  v-if="roomdata">
             <h1>{{ roomdata.roomName }}</h1>
         </template>
 
-        <h5>Room ID: {{ roomInfoStore.ID }}</h5>
+        <h5>Room ID: {{ roomID }}</h5>
         <br>
 
         <div class = 'options'>
