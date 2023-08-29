@@ -2,6 +2,7 @@
 <script>
     import ActivityChooser from '../components/ActivityChooser.vue';
     import TimeSelector from '../components/TimeSelector.vue';
+    import Calendar from '../components/Calendar.vue';
     import HomePageButtons from '../components/HomePageButtons.vue';
 
     //store stuff
@@ -13,6 +14,7 @@
         components: {
             ActivityChooser,
             TimeSelector,
+            Calendar,
             HomePageButtons,
         },
         data(){
@@ -53,10 +55,12 @@
                 <h3>Activity Chooser</h3>
                 <ActivityChooser/>
             </div>
-
             <div class='showborder'>
                 <h3>Chatbox</h3>
             </div>
+        </div>
+        <div>
+            <Calendar/>
         </div>
 
         <!--EXIT BUTTON-->

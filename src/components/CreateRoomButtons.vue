@@ -55,7 +55,7 @@ export default {
 <template>
   <div>
     <input type="checkbox" v-model="isChecked">
-    <label for="checkbox2">Another checkbox</label>
+    <label for="checkbox2">Clear selected times</label>
   </div>
   <div>
     room ID(4 digits):<input type="text" v-model.trim="roomID"/>

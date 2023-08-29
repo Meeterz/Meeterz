@@ -1,5 +1,6 @@
 <script setup>
 import CreateRoomButtons from '../components/CreateRoomButtons.vue'
+import Calendar from '../components/Calendar.vue';
 </script>
 
 <template>
@@ -12,6 +13,9 @@ import CreateRoomButtons from '../components/CreateRoomButtons.vue'
   <div>
     <input type="text" v-model="inputText" placeholder="Enter Room name">
     <button>Name Room</button>
+  </div>
+  <div>
+    <Calendar />
   </div>
 </template>
 
