@@ -26,6 +26,8 @@ export default {
     handleAvailSelect(selectInfo){
       let calendarApi = selectInfo.view.calendar;
 
+      calendarApi.unselect();
+
       calendarApi.addEvent({
         id: this.eid++,
         title: 'available',
