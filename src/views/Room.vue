@@ -2,7 +2,7 @@
 
 <script>
     import ActivityChooser from '../components/ActivityChooser.vue';
-    import TimeSelector from '../components/TimeSelector.vue';
+    //import TimeSelector from '../components/TimeSelector.vue';
     import Calendar from '../components/Calendar.vue';
     import HomePageButtons from '../components/HomePageButtons.vue';
 
@@ -29,7 +29,7 @@
     export default {
         components: {
             ActivityChooser,
-            TimeSelector,
+            //TimeSelector,
             Calendar,
             HomePageButtons,
         },
@@ -39,6 +39,7 @@
                 roomdata: null,
                 roomID: this.$route.params.code,
                 username: '',
+                revealPage: false,
                 uid: '',
                 userAvail: [],
             }
@@ -50,6 +51,10 @@
             this.findName();
         },
         methods: {
+            reveal(){
+                this.revealPage = true;
+            },
+            
             async findName() { //finds the name of the room based on the id put in. Using the store for now
                 try {
                     console.log('Calling findName');
@@ -69,28 +74,28 @@
                     console.error('Error in findName', err);
                 }
             },
+            
             async createUsername() { //call in both join and create with text boxes correlting to both fields.
-            if (this.username) {
-                try {
-                console.log('Calling createUsername');
-                console.log('Creating User:', {username: this.username});
-                const docReference = await addDoc(
-                    collection(db, 'rooms', this.roomID, 'users'),
-                    {
-                    username:this.username,
+                if (this.username) {
+                    try {
+                    console.log('Calling createUsername');
+                    console.log('Creating User:', {username: this.username});
+                    const docReference = await addDoc(
+                        collection(db, 'rooms', this.roomID, 'users'),
+                        {
+                        username:this.username,
+                        }
+                    );
+                    this.uid = docReference.id;
+                    console.log('New User:', {ID: docReference.id});
+                    console.log('Completed createUsername');
                     }
-                );
-
-                console.log('New User:', {ID: docReference.id});
-                console.log('Completed createUsername');
-
-                this.uid = docReference.id;
+                    catch(err) {
+                    console.error(err);
+                    }
                 }
-                catch(err) {
-                console.error(err);
-                }
-            }
             },
+            
             async sendAvailToDb() {
             if (this.uid && this.userAvail.length > 0) {
                 for(let i in this.userAvail){
@@ -139,38 +144,37 @@
             <h1>{{ roomdata.roomName }}</h1>
         </template>
 
-        <h5>Room ID: {{ roomID }}</h5>
+        <h3>Room ID: {{ roomID }}</h3>
         <br>
+        <div v-if="!revealPage">
+            username: <input v-model="username">
+            <button @click="createUsername();reveal()">Confirm username</button>
+        </div>
 
-        username: <input v-model="username">
-        <button @click="createUsername()">Confirm username</button>
         <!--make it so functions are hidden until username is confirmed
         Also disable changing of username maybe-->
 
-        <!--This button can be moved-->
-        <button @click="sendAvailToDb()">Save availability</button>
-
-        <div class = 'options'>
-            <div class='showborder'>
-                <h3>Time Selecter</h3>
-                <TimeSelector/>
+        <div v-if="revealPage">
+            <div>
+                <h4>User: {{ username }}</h4>
             </div>
+            
+            <!--This button can be moved-->
+            <button @click="sendAvailToDb()">Save availability</button>
 
-            <div class='showborder'>
-                <h3>Activity Chooser</h3>
-                <ActivityChooser/>
-            </div>
+            <div class = 'options'>
+                <!--calendar-->
+                <div>
+                    <Calendar @avail-updated="saveAvail"/>
+                </div>
 
-            <div class='showborder'>
-                <h3>Chatbox</h3>
+                <div class='showborder'>
+                    <h3>Activity Chooser</h3>
+                    <ActivityChooser/>
+                </div>
             </div>
         </div>
-
-        <!--calendar-->
-        <div>
-            <Calendar @avail-updated="saveAvail"/>
-        </div>
-
+        
         <!--EXIT BUTTON-->
         <nav>
             <RouterLink to="/"><button @click="navigate" role="link">leave</button></RouterLink>
@@ -185,6 +189,7 @@
 .options {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     padding: 2rem;
 }
 .showborder {
