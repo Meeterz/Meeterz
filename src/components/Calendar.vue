@@ -21,7 +21,7 @@ export default {
         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
         select: this.handleAvailSelect
       },
-      eid: 0
+      eid: 0 //should probably load this from the db
     }
   },
   methods: {
