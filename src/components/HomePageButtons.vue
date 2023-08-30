@@ -24,21 +24,17 @@ import {useRoomStore} from '../stores/RoomStore'
     <nav>
 
       <!--Join Room-->
-      <RouterLink :to="{name: 'room', params: {code: joinIsEmpty ? ' ' : roomCode}}">
-        <button id="joinRoomButton" :disabled = "joinIsDisabled" @click="storeJoinID(); createUsername()" role="link">Join</button>
-      </RouterLink>
       Room ID: <input v-model.trim="roomCode">
-
+      <RouterLink :to="{name: 'room', params: {code: joinIsEmpty ? ' ' : roomCode}}">
+        <button id="joinRoomButton" :disabled = "joinIsDisabled"  role="link">Join room</button>
+      </RouterLink>
+      
 
       <!--Create room-->
-      <!--right now i have one button that creates the room and stores an ID, and then one that puts the host inside it
-      with a uniqe url. I want it in one button but i dont know how to rn.-->
-      <button id="createRoomButton" :disabled = "noName" @click="createRoom()">Create a room</button>
-      <RouterLink :to="{name: 'room', params: {code:roomID}}">
-        <button id="createRoomButton" :disabled = "noName" @click="createUsername()" role="link">now join</button>
-      </RouterLink>
       Room name: <input v-model.trim="roomName"/>
-
+        <button id="createRoomButton" :disabled = "noName" @click="createRoom()">Create room</button>
+      
+      
 
     </nav>
   </div>
@@ -67,7 +63,6 @@ export default {
       roomID: '0',
       isEmpty: true,
       rightLength: true,
-      username: '',
     }
   },
 
@@ -101,11 +96,13 @@ export default {
 
           console.log('New room:', {roomID: docReference.id});
           console.log('Completed createRoom');
+          this.$router.push({name: 'room', params: {code:docReference.id}})
         }
         catch(err) {
           console.error('Error in createRoom',err);
         }
       }
+      
     },
   },
 
