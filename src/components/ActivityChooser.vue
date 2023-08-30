@@ -22,7 +22,7 @@
   
 <script>
   //maybe turn each suggestion to a seperate component, but it didtn work so idk
-  import suggestion from './ActivitySuggestion.vue'; 
+  //import suggestion from './ActivitySuggestion.vue'; 
   export default {
     /*  I dont know how props work
     props: {
@@ -35,7 +35,7 @@
     },  */
     
     components: {
-      suggestion
+      //suggestion
     },  
     data() {
       return {

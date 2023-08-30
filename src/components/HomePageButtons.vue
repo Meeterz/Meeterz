@@ -22,8 +22,6 @@ import {useRoomStore} from '../stores/RoomStore'
   <div>
     <!---Instructions for joining/creating a room maybe?-->
     <nav>
-      <!--enter username-->
-      username: <input v-model="username">
 
       <!--Join Room-->
       <RouterLink :to="{name: 'room', params: {code: joinIsEmpty ? ' ' : roomCode}}">
@@ -109,54 +107,6 @@ export default {
         }
       }
     },
-
-    async storeID() { //stores the ID of newly created room into roomInfoStore (will replace)
-      if (this.roomID !=null) {
-        try {
-          console.log('Calling storeID');
-          this.roomInfoStore.addID(this.roomID);
-          console.log('Completed storeID');
-        }
-        catch(err) {
-          console.error(err);
-        }
-      }
-    },
-
-    async storeJoinID() { //stores the ID input into the join text. (will replace)
-      if (this.roomID !=null) {
-        try {
-          console.log('Calling storeID');
-          this.roomInfoStore.addID(this.roomCode);
-          console.log('Completed storeID');
-        }
-        catch(err) {
-          console.error(err);
-        }
-      }
-    },
-
-    async createUsername() { //call in both join and create with text boxes correlting to both fields.
-      if (this.username) {
-        try {
-          console.log('Calling createUsername');
-          console.log('Creating User:', {username: this.username});
-          const docReference = await addDoc(
-            collection(db, 'users'),
-            {
-               username:this.username,
-            }
-          );
-
-          console.log('New User:', {ID: docReference.id});
-          console.log('Completed createUsername');
-        }
-        catch(err) {
-          console.error(err);
-        }
-      }
-    },
-
   },
 
 }

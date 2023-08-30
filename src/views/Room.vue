@@ -1,4 +1,3 @@
-
 <script>
     import ActivityChooser from '../components/ActivityChooser.vue';
     import TimeSelector from '../components/TimeSelector.vue';
@@ -37,6 +36,7 @@
                 roomName: 'name',
                 roomdata: null,
                 roomID: this.$route.params.code,
+                username: '',
             }
         },
         created() { //created and mounted can run functions 
@@ -65,28 +65,26 @@
                     console.error('Error in findName', err);
                 }
             },
-
-            /*
-            async findUsername() { //finds the name of the user
+            async createUsername() { //call in both join and create with text boxes correlting to both fields.
+            if (this.username) {
                 try {
-                    console.log('Calling findUsername');
-                    const docRef = doc(db, 'users', );
-
-                    const docSnap = await getDoc(docRef);
-
-                    console.log({id: docSnap.id, ...docSnap.data() });
-                    this.roomdata = {
-                        id: docSnap.id,
-                        ...docSnap.data(),
+                console.log('Calling createUsername');
+                console.log('Creating User:', {username: this.username});
+                const docReference = await addDoc(
+                    collection(db, 'rooms', this.roomID, 'users'),
+                    {
+                    username:this.username,
                     }
-                    console.log('Completed findName');
+                );
 
+                console.log('New User:', {ID: docReference.id});
+                console.log('Completed createUsername');
                 }
                 catch(err) {
-                    console.error('Error in findName', err);
+                console.error(err);
                 }
+            }
             },
-            */
 
         },
         computed: {
@@ -108,6 +106,11 @@
 
         <h5>Room ID: {{ roomID }}</h5>
         <br>
+
+        username: <input v-model="username">
+        <button @click="createUsername()">Confirm username</button>
+        <!--make it so functions are hidden until username is confirmed
+        Also disable changing of username maybe-->
 
         <div class = 'options'>
             <div class='showborder'>
