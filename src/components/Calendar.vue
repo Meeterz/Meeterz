@@ -8,9 +8,21 @@ export default {
   components: {
     FullCalendar
   },
+  props: {
+    eventsToLoad: {
+      type: Array,
+    },
+  },
+  mounted(){
+    this.loadEvents();
+    this.calendar = this.$refs.fullCalendar.getApi();
+    this.calendar.refetchEvents();
+    this.calendar.render();
+  },
   data() {
     return {
-      calendarOptions: {
+        calendar: null,
+        calendarOptions: {
         plugins: [ resourceTimelinePlugin, interactionPlugin, timeGridPlugin],
         initialView: 'timeGridWeek',
         selectMirror: true,
@@ -19,12 +31,22 @@ export default {
         eventOverlap: false,
         selectOverlap: true,
         schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-        select: this.handleAvailSelect
+        select: this.handleAvailSelect,
+        events: [],
       },
       eid: 0 //should probably load this from the db
     }
   },
   methods: {
+    loadEvents(){
+      console.log(this.eventsToLoad);
+      if(this.eventsToLoad){
+        for(let i in this.eventsToLoad){
+          this.calendarOptions.events.push(this.eventsToLoad[i]);
+        }
+
+      }
+    },
     handleAvailSelect(selectInfo){
       let calendarApi = selectInfo.view.calendar;
 
@@ -64,9 +86,10 @@ export default {
   }
 }
 </script>
+
 <template>
 
-  <FullCalendar :options="calendarOptions" :eventOverlap = false />
+  <FullCalendar :options="calendarOptions" ref="fullCalendar" />
 </template>
 
 

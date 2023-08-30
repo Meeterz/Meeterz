@@ -41,18 +41,21 @@
                 username: '',
                 uid: '',
                 userAvail: [],
+                otherAvail: [],
             }
         },
-        created() { //created and mounted can run functions 
-            this.findName();
-        },
+        // created() { //created and mounted can run functions 
+        //     this.getRoomData();
+        //     this.loadCalendarData();
+        // },
         mounted() {
-            this.findName();
+            this.getRoomData();
+            this.loadCalendarData();
         },
         methods: {
-            async findName() { //finds the name of the room based on the id put in. Using the store for now
+            async getRoomData() { //finds the name of the room based on the id put in. Using the store for now
                 try {
-                    console.log('Calling findName');
+                    console.log('Calling getRoomData');
                     const docRef = doc(db, 'rooms', this.roomID);
 
                     const docSnap = await getDoc(docRef);
@@ -62,11 +65,50 @@
                         id: docSnap.id,
                         ...docSnap.data(),
                     }
+                    console.log(this.roomdata);
                     console.log('Completed findName');
 
                 }
                 catch(err) {
                     console.error('Error in findName', err);
+                }
+            },
+            async getUserAvailabilities(userID, username){
+                try{
+                    const docSnap = await getDocs(collection(db, "rooms/" + this.roomID + "/users/" + userID + "/availabilities"));
+
+                    let i = 0;
+
+                    docSnap.forEach((doc) => {
+                        this.otherAvail.push({
+                            id: userID + i,
+                            title: username + ' available',
+                            start: doc.data().start,
+                            end: doc.data().end,
+                            allDay: false,
+                        })
+                        i++;
+                    })
+                    console.log(this.otherAvail);
+                }
+                catch(err){
+                    console.error('Error in userAvail', err);
+                }
+            },
+            async loadCalendarData(){
+                try{
+                    const docsSnap = await getDocs(collection(db,"rooms/" + this.roomID + "/users"));
+        
+                    docsSnap.forEach((doc) => {
+                        this.uid = doc.id;
+                        this.getUserAvailabilities(this.uid, doc.data().username);
+                    });
+
+                    console.log(this.otherAvail);
+
+                }
+                catch(err){
+                    console.error('Error in loadCalendarData', err);
                 }
             },
             async createUsername() { //call in both join and create with text boxes correlting to both fields.
@@ -77,7 +119,7 @@
                 const docReference = await addDoc(
                     collection(db, 'rooms', this.roomID, 'users'),
                     {
-                    username:this.username,
+                        username:this.username,
                     }
                 );
 
@@ -168,7 +210,7 @@
 
         <!--calendar-->
         <div>
-            <Calendar @avail-updated="saveAvail"/>
+            <Calendar :eventsToLoad='otherAvail' @avail-updated="saveAvail"/>
         </div>
 
         <!--EXIT BUTTON-->
