@@ -1,3 +1,5 @@
+
+
 <script>
     import ActivityChooser from '../components/ActivityChooser.vue';
     import TimeSelector from '../components/TimeSelector.vue';
@@ -37,6 +39,8 @@
                 roomdata: null,
                 roomID: this.$route.params.code,
                 username: '',
+                uid: '',
+                userAvail: [],
             }
         },
         created() { //created and mounted can run functions 
@@ -79,18 +83,49 @@
 
                 console.log('New User:', {ID: docReference.id});
                 console.log('Completed createUsername');
+
+                this.uid = docReference.id;
                 }
                 catch(err) {
                 console.error(err);
                 }
             }
             },
+            async sendAvailToDb() {
+            if (this.uid && this.userAvail.length > 0) {
+                for(let i in this.userAvail){
+                    try {
+
+                        const docReference = await addDoc(
+                            collection(db, 'rooms', this.roomID, 'users', this.uid, 'availabilities'),
+                            {
+                                start:this.userAvail[i].start,
+                                end:this.userAvail[i].end,
+                            }
+                        );
+
+                        console.log('New availability added:', {ID: docReference.id});
+                        console.log('Completed saveAvailability');
+                    }
+                    catch(err) {
+                        console.error(err);
+                    }
+                }
+            }
+            },
+            saveAvail(availability){
+                for(let i in availability){
+                    //this is likely slow, in the interest of time it's not optimized for now
+                    this.userAvail[i] = availability[i];
+                    console.log(availability[i]);
+                }
+                console.log('availability saved temporarily...')
+            }
 
         },
         computed: {
             ...mapStores(useRoomStore),
-        },
-        
+        },   
     }
 </script>
 
@@ -112,6 +147,9 @@
         <!--make it so functions are hidden until username is confirmed
         Also disable changing of username maybe-->
 
+        <!--This button can be moved-->
+        <button @click="sendAvailToDb()">Save availability</button>
+
         <div class = 'options'>
             <div class='showborder'>
                 <h3>Time Selecter</h3>
@@ -130,7 +168,7 @@
 
         <!--calendar-->
         <div>
-            <Calendar/>
+            <Calendar @avail-updated="saveAvail"/>
         </div>
 
         <!--EXIT BUTTON-->

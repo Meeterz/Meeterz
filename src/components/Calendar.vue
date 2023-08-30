@@ -47,19 +47,20 @@ export default {
         calendarApi.addEvent(event);
 
       }
+      this.$emit('avail-updated', calendarApi.getEvents());
     },
-    mergeOverlap(event, calendar){
-    // "calendar" on line below should ref the element on which fc has been called 
-    var array = calendar.getEvents();
-    for(let i in array){
-        if (Date.parse(event.end) >= Date.parse(array[i].start) && Date.parse(event.start) <= Date.parse(array[i].end)){
-          event.start = Date.parse(event.start) < Date.parse(array[i].start) ? event.start : array[i].start;
-          event.end = Date.parse(event.end) > Date.parse(array[i].end) ? event.end : array[i].end;
-          return array[i].id;
-        }
-    }
-    return false;
-}
+      mergeOverlap(event, calendar){
+      // "calendar" on line below should ref the element on which fc has been called 
+      var array = calendar.getEvents();
+      for(let i in array){
+          if (Date.parse(event.end) >= Date.parse(array[i].start) && Date.parse(event.start) <= Date.parse(array[i].end)){
+            event.start = Date.parse(event.start) < Date.parse(array[i].start) ? event.start : array[i].start;
+            event.end = Date.parse(event.end) > Date.parse(array[i].end) ? event.end : array[i].end;
+            return array[i].id;
+          }
+      }
+      return false;
+    },
   }
 }
 </script>
