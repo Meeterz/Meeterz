@@ -63,6 +63,7 @@ export default {
       roomID: '0',
       isEmpty: true,
       rightLength: true,
+      acts: [],
     }
   },
 
@@ -90,6 +91,7 @@ export default {
             collection(db, 'rooms'),
             {
               roomName:this.roomName,
+              activities: this.acts,
             }
           );
           this.roomID = docReference.id;
